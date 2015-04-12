@@ -20,7 +20,9 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:id="@+id/title" />
+            android:id="@+id/title_artist"
+            android:gravity="center"
+            android:enabled="false" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -83,6 +85,21 @@
                 android:layout_height="wrap_content"
                 android:text="&quot;00:00&quot;"
                 android:id="@+id/whole_time" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ひまわりの約束"
+                android:id="@+id/sunflower"
+                android:checked="false"
+                android:onClick="Sunflower" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Happily"
+                android:id="@+id/radioButton"
+                android:onClick="Happily" />
 
         </LinearLayout>
 
