@@ -46,6 +46,7 @@ public class MainActivity extends ActionBarActivity {
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
     seekBar.setOnseekBarChangeListener(new OnSeekBarChangeListener){
                                            //↑Cannot resolve symbol 'OnSeekBarChangeListener'
+        
        // ↓Annotations are not allowed here
        @Override
        public void onStopTrackingTouch(SeekBar seekBar){
