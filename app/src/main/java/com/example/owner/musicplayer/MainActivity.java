@@ -1,12 +1,11 @@
 package com.example.owner.musicplayer;
 
 import android.media.MediaPlayer;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.TextureView;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -17,13 +16,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 
+
 public class MainActivity extends ActionBarActivity {
     private MediaPlayer player;
     private TextView title_artist;
     private Timer timer;
+    //timertaskを宣言←new!
+    private TimerTask timertask;
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,9 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
-    seekBar.setOnseekBarChangeListener(new OnSeekBarChangeListener){
-                                           //↑Cannot resolve symbol 'OnSeekBarChangeListener'
-        
+    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener){
+                                           //↑（Cannot resolve symbol 'OnSeekBarChangeListener'）
+
        // ↓Annotations are not allowed here
        @Override
        public void onStopTrackingTouch(SeekBar seekBar){
@@ -103,11 +106,12 @@ public class MainActivity extends ActionBarActivity {
         player.start();
         if (timer == null){
             timer = new Timer ();
-            timer.schedule(new TimerTask() {
+            timer.schedule(new timertask() {
+                //↓　Method does notoverride method from its superclass←New!
                 @Override
                 public void run() {
-                                          //↓Cannot resolve method　getCurrentPosition()'
-                    int duration = timer.getCurrentPosition()/1000;
+                                          //↓(Cannot resolve method　getCurrentPosition()')
+                    int duration = player.getCurrentPosition() / 1000;
 
                     int minutes = duration/60;
                     int seconds = duration % 60;
