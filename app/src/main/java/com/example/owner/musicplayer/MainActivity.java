@@ -1,5 +1,7 @@
 package com.example.owner.musicplayer;
 
+import android.graphics.BitmapFactory;
+import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -47,11 +50,10 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
-    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener){
+    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
                                            //↑（Cannot resolve symbol 'OnSeekBarChangeListener'）
-
        // ↓Annotations are not allowed here
-       @Override
+      @Override
        public void onStopTrackingTouch(SeekBar seekBar){
             int progress =seekBar.getProgress();
             player.seekTo(progress);
@@ -59,32 +61,37 @@ public class MainActivity extends ActionBarActivity {
        }
       // ↓Annotations are not allowed here
        @Override
-       public void onStartTrackingTouch(SeekBar seekBar){
+        public void onStartTrackingTouch(SeekBar seekBar) {
             player.pause();
-       }
+        }
         // ↓Annotations are not allowed here
         @Override
-        public void onProgressChange(SeekBar seekBar, int progress, boolean fromUser ){
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ){
              //progressをTextViewにセット
       }
     }//SeekBarFinish*/
 
-    public void Sunflower(View v){
+
+    public void Sunflower(View v) {
         player = MediaPlayer.create(this, R.raw.sample);
         title_artist.setText("ひまわりの約束(秦基博)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
 
-        duration = duration/1000;
+        duration = duration / 1000;
 
-        int minutes = duration/60;
+        int minutes = duration / 60;
         int seconds = duration % 60;
 
-        String m = String.format(Locale.JAPAN, "%02d" ,minutes);
-        String s = String.format(Locale.JAPAN, "%02d" ,seconds);
+        String m = String.format(Locale.JAPAN, "%02d", minutes);
+        String s = String.format(Locale.JAPAN, "%02d", seconds);
 
-    wholeTimeText.setText(m + ":" + s);
-}
+        wholeTimeText.setText(m + ":" + s);
+
+        String path = String.valueOf(R.raw.sample);
+        public void setDataSource (String path)
+        setImage();
+    }
 
     public void Happily(View v){
         player = MediaPlayer.create(this, R.raw.sample);
@@ -102,12 +109,23 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
     }
+
+   public void setImage(){
+        public byte[] getEmbeddedPicture ()
+         ImageView imageView = (ImageView)findViewById(R.id.imageView);
+            byte[] data = mmr.getEmbeddedPicture();
+
+         if (null != data) {
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
+        }
+   }
+
     public void start(View v){
         player.start();
         if (timer == null){
             timer = new Timer ();
             timer.schedule(new timertask() {
-                //↓　Method does notoverride method from its superclass←New!
+                //↓　Method does not override method from its superclass←New!
                 @Override
                 public void run() {
                                           //↓(Cannot resolve method　getCurrentPosition()')
