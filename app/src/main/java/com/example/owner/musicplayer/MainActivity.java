@@ -18,6 +18,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import static com.example.owner.musicplayer.R.*;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,16 +30,19 @@ public class MainActivity extends ActionBarActivity {
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
+    private String path;
+    private ImageView imageView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        title_artist = (TextView) findViewById(R.id.title_artist);
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
-        currentTimeText = (TextView) findViewById(R.id.current_time);
-        wholeTimeText = (TextView) findViewById(R.id.whole_time);
+        setContentView(layout.activity_main);
+        title_artist = (TextView) findViewById(id.title_artist);
+        seekBar = (SeekBar) findViewById(id.seekBar);
+        currentTimeText = (TextView) findViewById(id.current_time);
+        wholeTimeText = (TextView) findViewById(id.whole_time);
+        imageView = (ImageView)findViewById(id.imageView);
 
         try {
             player.prepare();
@@ -73,7 +77,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void Sunflower(View v) {
-        player = MediaPlayer.create(this, R.raw.sample);
+        player = MediaPlayer.create(this, raw.sample);
         title_artist.setText("ひまわりの約束(秦基博)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
@@ -88,13 +92,12 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        String path = String.valueOf(R.raw.sample);
-        public void setDataSource (String path)
-        setImage();
+        public  void setDataSource(this,raw.sample)
+         setImage();
     }
 
     public void Happily(View v){
-        player = MediaPlayer.create(this, R.raw.sample);
+        player = MediaPlayer.create(this, raw.sample);
         title_artist.setText("Happily(OneDirection)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
@@ -110,14 +113,12 @@ public class MainActivity extends ActionBarActivity {
         wholeTimeText.setText(m + ":" + s);
     }
 
-   public void setImage(){
+  public static void setImage(){
+      MediaMetadataRetriever mmr = new MediaMetadataRetriever
         public byte[] getEmbeddedPicture ()
-         ImageView imageView = (ImageView)findViewById(R.id.imageView);
             byte[] data = mmr.getEmbeddedPicture();
-
-         if (null != data) {
-            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
-        }
+         if (null != data)
+             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
    }
 
     public void start(View v){
