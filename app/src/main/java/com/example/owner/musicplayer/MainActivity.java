@@ -25,7 +25,6 @@ public class MainActivity extends ActionBarActivity {
     private MediaPlayer player;
     private TextView title_artist;
     private Timer timer;
-    //timertaskを宣言←new!
     private TimerTask timertask;
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
@@ -54,7 +53,7 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
-    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
+    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
                                            //↑（Cannot resolve symbol 'OnSeekBarChangeListener'）
        // ↓Annotations are not allowed here
       @Override
@@ -72,8 +71,8 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ){
              //progressをTextViewにセット
-      }
-    }//SeekBarFinish*/
+    }
+    //SeekBarFinish*/
 
 
     public void Sunflower(View v) {
@@ -92,36 +91,46 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public  void setDataSource(this,raw.sample)
-         setImage();
+        public void setDataSource(this,raw.sample)
+
+        setImage();
+
     }
 
-    public void Happily(View v){
+
+    public void Happily(View v) {
         player = MediaPlayer.create(this, raw.sample);
         title_artist.setText("Happily(OneDirection)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
 
-        duration = duration/1000;
+        duration = duration / 1000;
 
-        int minutes = duration/60;
+        int minutes = duration / 60;
         int seconds = duration % 60;
 
-        String m = String.format(Locale.JAPAN, "%02d" ,minutes);
-        String s = String.format(Locale.JAPAN, "%02d" ,seconds);
+        String m = String.format(Locale.JAPAN, "%02d", minutes);
+        String s = String.format(Locale.JAPAN, "%02d", seconds);
 
         wholeTimeText.setText(m + ":" + s);
-    }
 
-  public static void setImage(){
-      MediaMetadataRetriever mmr = new MediaMetadataRetriever
-        public byte[] getEmbeddedPicture ()
-            byte[] data = mmr.getEmbeddedPicture();
-         if (null != data)
-             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
-   }
+        public void setDataSource(this,raw.sample)
 
-    public void start(View v){
+         setImage();
+
+    //閉じるとerror
+
+
+    public static void setImage(){
+        MediaMetadataRetriever mmr=new MediaMetadataRetriever
+        public byte[]getEmbeddedPicture()
+        byte[]data=mmr.getEmbeddedPicture();
+        if(null!=data){
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data,0,data.length));
+        }
+    //閉じるとerror
+
+    public void  start(View v){
         player.start();
         if (timer == null){
             timer = new Timer ();
@@ -135,8 +144,8 @@ public class MainActivity extends ActionBarActivity {
                     int minutes = duration/60;
                     int seconds = duration % 60;
 
-                    final String m = String.format(Locale.JAPAN, "%02d" ,minutes);
-                    final String s = String.format(Locale.JAPAN, "%02d" ,seconds);
+                     final String m = String.format(Locale.JAPAN, "%02d" ,minutes);
+                     final String s = String.format(Locale.JAPAN, "%02d" ,seconds);
 
                     handler.post(new Runnable() {
                         @Override
@@ -192,4 +201,5 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }}
+    }
+ }
