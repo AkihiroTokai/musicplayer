@@ -29,7 +29,6 @@ public class MainActivity extends ActionBarActivity {
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
-    private String path;
     private ImageView imageView;
 
 
@@ -53,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
-    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener()
+    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
                                            //↑（Cannot resolve symbol 'OnSeekBarChangeListener'）
        // ↓Annotations are not allowed here
       @Override
@@ -71,6 +70,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ){
              //progressをTextViewにセット
+        }
     }
     //SeekBarFinish*/
 
@@ -114,11 +114,11 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(this,raw.sample)
+      public void setDataSource(this,raw.sample)
 
-         setImage();
+        setImage();
 
-    //閉じるとerror
+     //閉じるとerror
 
 
     public static void setImage(){
