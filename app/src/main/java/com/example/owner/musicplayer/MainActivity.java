@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static com.example.owner.musicplayer.R.*;
+
 
 
 public class MainActivity extends ActionBarActivity {
@@ -29,18 +29,19 @@ public class MainActivity extends ActionBarActivity {
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
+    private String path;
     private ImageView imageView;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layout.activity_main);
-        title_artist = (TextView) findViewById(id.title_artist);
-        seekBar = (SeekBar) findViewById(id.seekBar);
-        currentTimeText = (TextView) findViewById(id.current_time);
-        wholeTimeText = (TextView) findViewById(id.whole_time);
-        imageView = (ImageView)findViewById(id.imageView);
+        setContentView(R.layout.activity_main);
+        title_artist = (TextView) findViewById(R.id.title_artist);
+        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        currentTimeText = (TextView) findViewById(R.id.current_time);
+        wholeTimeText = (TextView) findViewById(R.id.whole_time);
+        imageView = (ImageView)findViewById(R.id.imageView);
 
         try {
             player.prepare();
@@ -52,8 +53,8 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Cannot resolve symbol 'setOnseekBarChangeListener'
-    seekBar.setOnseekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
-                                           //↑（Cannot resolve symbol 'OnSeekBarChangeListener'）
+    seekBar.setOnseekBarChangeListener (new OnSeekBarChangeListener(){
+                                           //↑ Invalid method declaration ; return type required
        // ↓Annotations are not allowed here
       @Override
        public void onStopTrackingTouch(SeekBar seekBar){
@@ -70,13 +71,13 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ){
              //progressをTextViewにセット
-        }
+
     }
     //SeekBarFinish*/
 
 
     public void Sunflower(View v) {
-        player = MediaPlayer.create(this, raw.sample);
+        player = MediaPlayer.create(this,R.raw.sample);
         title_artist.setText("ひまわりの約束(秦基博)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
@@ -91,15 +92,16 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(this,raw.sample)
-
+        public void setDataSource(R.raw.sample){
         setImage();
-
     }
 
 
+
+
+
     public void Happily(View v) {
-        player = MediaPlayer.create(this, raw.sample);
+        player = MediaPlayer.create(this, R.raw.sample);
         title_artist.setText("Happily(OneDirection)");
         int duration = player.getDuration();
         seekBar.setMax(duration);
@@ -114,21 +116,20 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-      public void setDataSource(this,raw.sample)
+        public void setDataSource(R.raw.sample)
 
         setImage();
 
-     //閉じるとerror
+    }
 
 
-    public static void setImage(){
-        MediaMetadataRetriever mmr=new MediaMetadataRetriever
-        public byte[]getEmbeddedPicture()
-        byte[]data=mmr.getEmbeddedPicture();
-        if(null!=data){
-            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data,0,data.length));
+    public static void setImage() {
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever;
+        public byte[] getEmbeddedPicture ();
+        if (null != data) {
+            imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
         }
-    //閉じるとerror
+    }
 
     public void  start(View v){
         player.start();
@@ -167,7 +168,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-    public void stop(View v){
+    public void stop(){
         player.stop();
         if(timer !=null){
             timer.cancel();
