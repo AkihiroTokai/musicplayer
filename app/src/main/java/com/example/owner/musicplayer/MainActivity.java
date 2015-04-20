@@ -52,7 +52,7 @@ public class MainActivity extends ActionBarActivity {
     }
    //SeekBarStart
              //↓Unexpected token (Cannot resolve symbol 'setOnseekBarChangeListener')
-    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
     //↑ (Invalid method declaration ; return type required ）
        // ↓Annotations are not allowed here
       @Override
@@ -91,7 +91,7 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(R.raw.sample){
+        public void setDataSource(this,R.raw.sample){
         setImage();
     }
 
@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(R.raw.sample){
+        public void setDataSource(this,R.raw.sample){
 
         setImage();
 
