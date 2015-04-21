@@ -4,6 +4,7 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -21,6 +22,7 @@ import java.util.TimerTask;
 
 
 
+
 public class MainActivity extends ActionBarActivity {
     private MediaPlayer player;
     private TextView title_artist;
@@ -29,7 +31,8 @@ public class MainActivity extends ActionBarActivity {
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
-    private ImageView imageView;
+    private String filePath;
+    private static ImageView imageView;
 
 
     @Override
@@ -49,10 +52,10 @@ public class MainActivity extends ActionBarActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
+
    //SeekBarStart
              //↓Unexpected token (Cannot resolve symbol 'setOnseekBarChangeListener')
-    SeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
     //↑ (Invalid method declaration ; return type required ）
        // ↓Annotations are not allowed here
       @Override
@@ -70,8 +73,10 @@ public class MainActivity extends ActionBarActivity {
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
             //progressをTextViewにセット
+
         }
     });
+    }
     //SeekBarFinish*/
 
 
@@ -91,10 +96,10 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(this,R.raw.sample){
+       filePath= Environment.getExternalStorageDirectory().getPath() +
+                "/sample.mp3";
         setImage();
     }
-
 
 
 
@@ -115,20 +120,22 @@ public class MainActivity extends ActionBarActivity {
 
         wholeTimeText.setText(m + ":" + s);
 
-        public void setDataSource(this,R.raw.sample){
+        filePath =   Environment.getExternalStorageDirectory().getPath() +
+                "/sample.mp3";
 
         setImage();
-
     }
 
 
-    public static void setImage() {
-        MediaMetadataRetriever mmr = new MediaMetadataRetriever;
-        public byte[] getEmbeddedPicture ();
+    public void setImage() {
+        MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+        mmr.setDataSource(filePath);
+        byte[] data = mmr.getEmbeddedPicture();
         if (null != data) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
         }
     }
+
 
     public void  start(View v){
         player.start();
