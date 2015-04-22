@@ -27,7 +27,7 @@ public class MainActivity extends ActionBarActivity {
     private MediaPlayer player;
     private TextView title_artist;
     private Timer timer;
-    private TimerTask timertask;
+    private TimerTask timerTask;
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
@@ -45,6 +45,11 @@ public class MainActivity extends ActionBarActivity {
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
         imageView = (ImageView)findViewById(R.id.imageView);
 
+    }
+
+
+    public void Sunflower(View v) {
+        player = MediaPlayer.create(this,R.raw.sample);
         try {
             player.prepare();
         } catch (IllegalStateException e) {
@@ -53,52 +58,15 @@ public class MainActivity extends ActionBarActivity {
             e.printStackTrace();
         }
 
-   //SeekBarStart
-             //↓Unexpected token (Cannot resolve symbol 'setOnseekBarChangeListener')
-    seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-    //↑ (Invalid method declaration ; return type required ）
-       // ↓Annotations are not allowed here
-      @Override
-       public void onStopTrackingTouch(SeekBar seekBar){
-            int progress =seekBar.getProgress();
-            player.seekTo(progress);
-            player.start();
-       }
-      // ↓Annotations are not allowed here
-       @Override
-        public void onStartTrackingTouch(SeekBar seekBar) {
-            player.pause();
-        }
-        // ↓Annotations are not allowed here
-        @Override
-        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
-            //progressをTextViewにセット
+        seekBar();
 
-        }
-    });
-    }
-    //SeekBarFinish*/
-
-
-    public void Sunflower(View v) {
-        player = MediaPlayer.create(this,R.raw.sample);
         title_artist.setText("ひまわりの約束(秦基博)");
-        int duration = player.getDuration();
-        seekBar.setMax(duration);
 
-        duration = duration / 1000;
+        timeText();
 
-        int minutes = duration / 60;
-        int seconds = duration % 60;
-
-        String m = String.format(Locale.JAPAN, "%02d", minutes);
-        String s = String.format(Locale.JAPAN, "%02d", seconds);
-
-        wholeTimeText.setText(m + ":" + s);
-
-       filePath= Environment.getExternalStorageDirectory().getPath() +
+       /*filePath= Environment.getExternalStorageDirectory().getPath() +
                 "/sample.mp3";
-        setImage();
+        setImage(); */
     }
 
 
@@ -106,26 +74,45 @@ public class MainActivity extends ActionBarActivity {
 
     public void Happily(View v) {
         player = MediaPlayer.create(this, R.raw.sample);
+        try {
+            player.prepare();
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        seekBar();
+
         title_artist.setText("Happily(OneDirection)");
-        int duration = player.getDuration();
-        seekBar.setMax(duration);
 
-        duration = duration / 1000;
+        timeText();
 
-        int minutes = duration / 60;
-        int seconds = duration % 60;
-
-        String m = String.format(Locale.JAPAN, "%02d", minutes);
-        String s = String.format(Locale.JAPAN, "%02d", seconds);
-
-        wholeTimeText.setText(m + ":" + s);
-
-        filePath =   Environment.getExternalStorageDirectory().getPath() +
+        /*filePath =   Environment.getExternalStorageDirectory().getPath() +
                 "/sample.mp3";
 
-        setImage();
+        setImage();  */
     }
 
+
+    public void seekBar(){
+      seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+          @Override
+          public void onStopTrackingTouch(SeekBar seekBar){
+              int progress =seekBar.getProgress();
+              player.seekTo(progress);
+              player.start();
+          }
+          @Override
+          public void onStartTrackingTouch(SeekBar seekBar) {
+              player.pause();
+          }
+          @Override
+          public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
+              //progressをTextViewにセット
+          }
+      });
+    }
 
     public void setImage() {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
@@ -136,16 +123,29 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+   public void timeText(){
+       int duration = player.getDuration();
+       seekBar.setMax(duration);
+
+       duration = duration / 1000;
+
+       int minutes = duration / 60;
+       int seconds = duration % 60;
+
+       String m = String.format(Locale.JAPAN, "%02d", minutes);
+       String s = String.format(Locale.JAPAN, "%02d", seconds);
+
+       wholeTimeText.setText(m + ":" + s);
+    }
 
     public void  start(View v){
         player.start();
         if (timer == null){
             timer = new Timer ();
-            timer.schedule(new timertask() {
-                //↓　Method does not override method from its superclass←New!
+            timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
-                                          //↓(Cannot resolve method　getCurrentPosition()')
+
                     int duration = player.getCurrentPosition() / 1000;
 
                     int minutes = duration/60;
