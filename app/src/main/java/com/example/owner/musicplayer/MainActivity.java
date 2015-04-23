@@ -33,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
     private SeekBar seekBar;
     private String filePath;
     private static ImageView imageView;
+    private boolean nowPlaying;
+    private boolean selectMusic;
 
 
     @Override
@@ -44,7 +46,8 @@ public class MainActivity extends ActionBarActivity {
         currentTimeText = (TextView) findViewById(R.id.current_time);
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
         imageView = (ImageView)findViewById(R.id.imageView);
-
+        nowPlaying = false;
+        selectMusic = false;
     }
 
 
@@ -64,9 +67,11 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-       /*filePath= Environment.getExternalStorageDirectory().getPath() +
-                "/sample.mp3";
-        setImage(); */
+        /*filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+
+        setImage();  */
+
+        selectMusic = true;
     }
 
 
@@ -88,10 +93,11 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-        /*filePath =   Environment.getExternalStorageDirectory().getPath() +
-                "/sample.mp3";
+       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
 
-        setImage();  */
+        setImage(); */
+
+        selectMusic = true;
     }
 
 
@@ -139,32 +145,41 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void  start(View v){
-        player.start();
-        if (timer == null){
-            timer = new Timer ();
-            timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
+       if(selectMusic==true) {
+           if (nowPlaying == true) {
+               player.stop();
+           }
+           player.start();
+           nowPlaying = true;
+           if (timer != null) {
+               timer.cancel();
+           }
+           if (timer == null) {
+               timer = new Timer();
+               timer.schedule(new TimerTask() {
+                   @Override
+                   public void run() {
 
-                    int duration = player.getCurrentPosition() / 1000;
+                       int duration = player.getCurrentPosition() / 1000;
 
-                    int minutes = duration/60;
-                    int seconds = duration % 60;
+                       int minutes = duration / 60;
+                       int seconds = duration % 60;
 
-                     final String m = String.format(Locale.JAPAN, "%02d" ,minutes);
-                     final String s = String.format(Locale.JAPAN, "%02d" ,seconds);
+                       final String m = String.format(Locale.JAPAN, "%02d", minutes);
+                       final String s = String.format(Locale.JAPAN, "%02d", seconds);
 
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            currentTimeText.setText( m + ":" + s);
-                            seekBar.setProgress(player.getCurrentPosition());
-                        }
-                    });
-                }
-            },0,1000);
-        }
-    }
+                       handler.post(new Runnable() {
+                           @Override
+                           public void run() {
+                               currentTimeText.setText(m + ":" + s);
+                               seekBar.setProgress(player.getCurrentPosition());
+                           }
+                       });
+                   }
+               }, 0, 1000);
+           }
+       }
+   }
 
     public void pause(View v) {
         player.pause();
@@ -172,15 +187,21 @@ public class MainActivity extends ActionBarActivity {
             timer.cancel();
             timer = null;
         }
+        nowPlaying = false;
     }
 
-    public void stop(){
+    public void stop(View v) {
         player.stop();
-        if(timer !=null){
+        if (timer != null) {
             timer.cancel();
             timer = null;
+            seekBar.setProgress(player.getCurrentPosition());
         }
+        nowPlaying = false;
     }
+
+
+
 
 
     @Override
