@@ -25,9 +25,8 @@ import java.util.TimerTask;
 
 public class MainActivity extends ActionBarActivity {
     private MediaPlayer player;
-    private TextView title_artist;
+    private TextView title;
     private Timer timer;
-    private TimerTask timerTask;
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
     private SeekBar seekBar;
@@ -41,7 +40,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        title_artist = (TextView) findViewById(R.id.title_artist);
+        title = (TextView) findViewById(R.id.title);
         seekBar = (SeekBar) findViewById(R.id.seekBar);
         currentTimeText = (TextView) findViewById(R.id.current_time);
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
@@ -63,13 +62,13 @@ public class MainActivity extends ActionBarActivity {
 
         seekBar();
 
-        title_artist.setText("ひまわりの約束(秦基博)");
+        title.setText("ひまわりの約束");
 
         timeText();
 
-        /*filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
 
-        setImage();  */
+        setImage();   */
 
         selectMusic = true;
     }
@@ -89,7 +88,7 @@ public class MainActivity extends ActionBarActivity {
 
         seekBar();
 
-        title_artist.setText("Happily(OneDirection)");
+        title.setText("Happily");
 
         timeText();
 
@@ -116,7 +115,17 @@ public class MainActivity extends ActionBarActivity {
           @Override
           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
               //progressをTextViewにセット
-          }
+              int duration = player.getCurrentPosition() / 1000;
+
+              int minutes = duration / 60;
+              int seconds = duration % 60;
+
+              final String m = String.format(Locale.JAPAN, "%02d", minutes);
+              final String s = String.format(Locale.JAPAN, "%02d", seconds);
+
+              currentTimeText.setText(m + ":" + s);
+
+              }
       });
     }
 
@@ -145,15 +154,19 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void  start(View v){
-       if(selectMusic==true) {
+       if(selectMusic == true) {
+
            if (nowPlaying == true) {
                player.stop();
            }
+
            player.start();
            nowPlaying = true;
+
            if (timer != null) {
                timer.cancel();
            }
+
            if (timer == null) {
                timer = new Timer();
                timer.schedule(new TimerTask() {
@@ -182,22 +195,26 @@ public class MainActivity extends ActionBarActivity {
    }
 
     public void pause(View v) {
-        player.pause();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-        }
-        nowPlaying = false;
+       if(selectMusic == true) {
+           player.pause();
+           if (timer != null) {
+               timer.cancel();
+               timer = null;
+           }
+           nowPlaying = false;
+       }
     }
 
     public void stop(View v) {
-        player.stop();
-        if (timer != null) {
-            timer.cancel();
-            timer = null;
-            seekBar.setProgress(player.getCurrentPosition());
-        }
-        nowPlaying = false;
+       if(selectMusic == true) {
+           player.stop();
+           if (timer != null) {
+               timer.cancel();
+               timer = null;
+               seekBar.setProgress(player.getCurrentPosition());
+           }
+           nowPlaying = false;
+       }
     }
 
 
