@@ -45,6 +45,7 @@ public class MainActivity extends ActionBarActivity {
         currentTimeText = (TextView) findViewById(R.id.current_time);
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
         imageView = (ImageView)findViewById(R.id.imageView);
+
         nowPlaying = false;
         selectMusic = false;
     }
@@ -103,29 +104,25 @@ public class MainActivity extends ActionBarActivity {
     public void seekBar(){
       seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
           @Override
-          public void onStopTrackingTouch(SeekBar seekBar){
-              int progress =seekBar.getProgress();
-              player.seekTo(progress);
-              player.start();
-          }
-          @Override
           public void onStartTrackingTouch(SeekBar seekBar) {
               player.pause();
           }
           @Override
           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
               //progressをTextViewにセット
-              int duration = player.getCurrentPosition() / 1000;
-
-              int minutes = duration / 60;
-              int seconds = duration % 60;
-
-              final String m = String.format(Locale.JAPAN, "%02d", minutes);
-              final String s = String.format(Locale.JAPAN, "%02d", seconds);
-
-              currentTimeText.setText(m + ":" + s);
+              int Progress = seekBar.getProgress();
+              player.seekTo(Progress);
 
               }
+          @Override
+          public void onStopTrackingTouch(SeekBar seekBar){
+              int progress =seekBar.getProgress();
+              player.seekTo(progress);
+              if(nowPlaying == true) {
+                  player.start();
+              }
+
+          }
       });
     }
 
@@ -207,7 +204,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void stop(View v) {
        if(selectMusic == true) {
-           player.stop();
+           player.pause();
            if (timer != null) {
                timer.cancel();
                timer = null;
