@@ -4,7 +4,6 @@ import android.graphics.BitmapFactory;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -74,9 +73,6 @@ public class MainActivity extends ActionBarActivity {
         selectMusic = true;
     }
 
-
-
-
     public void Happily(View v) {
         player = MediaPlayer.create(this, R.raw.sample);
         try {
@@ -103,17 +99,19 @@ public class MainActivity extends ActionBarActivity {
 
     public void seekBar(){
       seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
           @Override
           public void onStartTrackingTouch(SeekBar seekBar) {
               player.pause();
           }
+
           @Override
           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
               //progressをTextViewにセット
               int Progress = seekBar.getProgress();
               player.seekTo(Progress);
-
               }
+
           @Override
           public void onStopTrackingTouch(SeekBar seekBar){
               int progress =seekBar.getProgress();
@@ -135,6 +133,7 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+
    public void timeText(){
        int duration = player.getDuration();
        seekBar.setMax(duration);
@@ -149,6 +148,7 @@ public class MainActivity extends ActionBarActivity {
 
        wholeTimeText.setText(m + ":" + s);
     }
+
 
     public void  start(View v){
        if(selectMusic == true) {
@@ -191,6 +191,7 @@ public class MainActivity extends ActionBarActivity {
        }
    }
 
+
     public void pause(View v) {
        if(selectMusic == true) {
            player.pause();
@@ -201,6 +202,7 @@ public class MainActivity extends ActionBarActivity {
            nowPlaying = false;
        }
     }
+
 
     public void stop(View v) {
        if(selectMusic == true) {
@@ -214,15 +216,12 @@ public class MainActivity extends ActionBarActivity {
        }
     }
 
-
-
-
-
     @Override
     protected void onDestroy(){
         super.onDestroy();
         player.release();
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
