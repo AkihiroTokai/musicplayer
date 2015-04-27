@@ -59,6 +59,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center">
+
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +85,7 @@
                 android:text="停止"
                 android:id="@+id/stop"
                 android:onClick="stop" />
+
      </LinearLayout>
 
         <SeekBar
@@ -115,6 +117,9 @@
                 android:layout_height="wrap_content"
                 android:text="&quot;00:00&quot;"
                 android:id="@+id/whole_time" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </RelativeLayout>
