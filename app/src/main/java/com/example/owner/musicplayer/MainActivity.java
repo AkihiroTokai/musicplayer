@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void Sunflower(View v) {
-        player = MediaPlayer.create(this,R.raw.sample);
+        player = MediaPlayer.create(this,R.raw.sunflower);
         try {
             player.prepare();
         } catch (IllegalStateException e) {
@@ -66,15 +66,13 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
-
-        setImage();   */
-
+        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
+        setImage();
         selectMusic = true;
     }
 
     public void Happily(View v) {
-        player = MediaPlayer.create(this, R.raw.sample);
+        player = MediaPlayer.create(this, R.raw.happily);
         try {
             player.prepare();
         } catch (IllegalStateException e) {
