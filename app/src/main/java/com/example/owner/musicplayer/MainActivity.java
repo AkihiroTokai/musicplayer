@@ -66,8 +66,9 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
-        setImage();
+        /*filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
+        setImage();*/
+
         selectMusic = true;
     }
 
@@ -88,12 +89,10 @@ public class MainActivity extends ActionBarActivity {
         timeText();
 
        /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
-
         setImage(); */
 
         selectMusic = true;
     }
-
 
     public void seekBar(){
       seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -105,7 +104,6 @@ public class MainActivity extends ActionBarActivity {
 
           @Override
           public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser ) {
-              //progressをTextViewにセット
               int Progress = seekBar.getProgress();
               player.seekTo(Progress);
               }
