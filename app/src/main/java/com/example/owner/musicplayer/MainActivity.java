@@ -66,8 +66,8 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-        /*filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
-        setImage();*/
+        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
+        setImage();
 
         selectMusic = true;
     }
@@ -88,10 +88,10 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
-        setImage(); */
+        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        setImage();
 
-        selectMusic = true;
+       selectMusic = true;
     }
 
     public void seekBar(){
@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(filePath);
         byte[] data = mmr.getEmbeddedPicture();
-        if (null != data) {
+        if ( data != null ) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
         }
     }
