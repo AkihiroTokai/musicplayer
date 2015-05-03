@@ -187,7 +187,6 @@ public class MainActivity extends ActionBarActivity {
        }
    }
 
-
     public void pause(View v) {
        if(selectMusic == true) {
            player.pause();
@@ -198,7 +197,6 @@ public class MainActivity extends ActionBarActivity {
            nowPlaying = false;
        }
     }
-
 
     public void stop(View v) {
        if(selectMusic == true) {
