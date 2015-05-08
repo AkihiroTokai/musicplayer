@@ -1,6 +1,8 @@
 package com.example.owner.musicplayer;
 
+import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.media.AudioManager;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
@@ -28,7 +30,8 @@ public class MainActivity extends ActionBarActivity {
     private Timer timer;
     private Handler handler = new Handler();
     private TextView currentTimeText,wholeTimeText;
-    private SeekBar seekBar;
+    private SeekBar progress;
+    private SeekBar volume;
     private String filePath;
     private static ImageView imageView;
     private boolean nowPlaying;
@@ -40,13 +43,35 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         title = (TextView) findViewById(R.id.title);
-        seekBar = (SeekBar) findViewById(R.id.seekBar);
+        progress = (SeekBar) findViewById(R.id.progress);
+        volume = (SeekBar)findViewById(R.id.volume);
         currentTimeText = (TextView) findViewById(R.id.current_time);
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
         imageView = (ImageView)findViewById(R.id.imageView);
 
         nowPlaying = false;
         selectMusic = false;
+
+        volume.setOnSeekBarChangeListener(
+                new SeekBar.OnSeekBarChangeListener() {
+                    @Override
+                    public void onProgressChanged(SeekBar volume,
+                        int progress, boolean fromUser) {
+                        AudioManager am = (AudioManager) getSystemService(Context.AUDIO_SERVICE);
+                        am.setStreamVolume(AudioManager.STREAM_MUSIC, progress, 0);
+                    }
+
+                    @Override
+                    public void onStartTrackingTouch(SeekBar seekBar) {
+
+                    }
+
+                    @Override
+                    public void onStopTrackingTouch(SeekBar seekBar) {
+
+                    }
+                });
+
     }
 
 
@@ -66,8 +91,8 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
-        setImage();
+       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sunflower;
+        setImage(); */
 
         selectMusic = true;
     }
@@ -88,14 +113,14 @@ public class MainActivity extends ActionBarActivity {
 
         timeText();
 
-        filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
-        setImage();
+       /* filePath = "android.resource://" + getPackageName() + "/" + R.raw.sample;
+        setImage();*/
 
        selectMusic = true;
     }
 
     public void seekBar(){
-      seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+      progress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
           @Override
           public void onStartTrackingTouch(SeekBar seekBar) {
@@ -120,11 +145,13 @@ public class MainActivity extends ActionBarActivity {
       });
     }
 
+
+
     public void setImage() {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(filePath);
         byte[] data = mmr.getEmbeddedPicture();
-        if ( data != null ) {
+        if (data != null) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
         }
     }
@@ -132,7 +159,7 @@ public class MainActivity extends ActionBarActivity {
 
    public void timeText(){
        int duration = player.getDuration();
-       seekBar.setMax(duration);
+      progress.setMax(duration);
 
        duration = duration / 1000;
 
@@ -178,7 +205,7 @@ public class MainActivity extends ActionBarActivity {
                            @Override
                            public void run() {
                                currentTimeText.setText(m + ":" + s);
-                               seekBar.setProgress(player.getCurrentPosition());
+                               progress.setProgress(player.getCurrentPosition());
                            }
                        });
                    }
@@ -204,7 +231,7 @@ public class MainActivity extends ActionBarActivity {
            if (timer != null) {
                timer.cancel();
                timer = null;
-               seekBar.setProgress(player.getCurrentPosition());
+               progress.setProgress(player.getCurrentPosition());
            }
            nowPlaying = false;
        }
