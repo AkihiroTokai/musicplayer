@@ -140,12 +140,9 @@ public class MainActivity extends ActionBarActivity {
               if(nowPlaying == true) {
                   player.start();
               }
-
           }
       });
     }
-
-
 
     public void setImage() {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
