@@ -153,7 +153,6 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
-
    public void timeText(){
        int duration = player.getDuration();
       progress.setMax(duration);
