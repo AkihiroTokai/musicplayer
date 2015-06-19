@@ -32,7 +32,7 @@ public class MainActivity extends ActionBarActivity {
     private TextView currentTimeText,wholeTimeText;
     private SeekBar progress;
     private SeekBar volume;
-    private String filePath;
+    //private String filePath;
     private static ImageView imageView;
     private boolean nowPlaying;
     private boolean selectMusic;
@@ -144,14 +144,14 @@ public class MainActivity extends ActionBarActivity {
       });
     }
 
-    public void setImage() {
+  /* public void setImage() {
         MediaMetadataRetriever mmr = new MediaMetadataRetriever();
         mmr.setDataSource(filePath);
         byte[] data = mmr.getEmbeddedPicture();
         if (data != null) {
             imageView.setImageBitmap(BitmapFactory.decodeByteArray(data, 0, data.length));
         }
-    }
+    }   */
 
    public void timeText(){
        int duration = player.getDuration();
