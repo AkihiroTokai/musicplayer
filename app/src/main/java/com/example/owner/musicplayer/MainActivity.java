@@ -44,10 +44,10 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
         title = (TextView) findViewById(R.id.title);
         progress = (SeekBar) findViewById(R.id.progress);
-        volume = (SeekBar)findViewById(R.id.volume);
+        volume = (SeekBar) findViewById(R.id.volume);
         currentTimeText = (TextView) findViewById(R.id.current_time);
         wholeTimeText = (TextView) findViewById(R.id.whole_time);
-        imageView = (ImageView)findViewById(R.id.imageView);
+        imageView = (ImageView) findViewById(R.id.imageView);
 
         nowPlaying = false;
         selectMusic = false;
@@ -167,7 +167,6 @@ public class MainActivity extends ActionBarActivity {
 
        wholeTimeText.setText(m + ":" + s);
     }
-
 
     public void  start(View v){
        if(selectMusic == true) {
