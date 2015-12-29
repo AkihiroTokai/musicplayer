@@ -1,9 +1,7 @@
 package com.example.owner.musicplayer;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.media.AudioManager;
-import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,7 +74,10 @@ public class MainActivity extends ActionBarActivity {
 
 
     public void Sunflower(View v) {
-        player = MediaPlayer.create(this,R.raw.sunflower);
+        player = new MediaPlayer();
+        player.setDataSource(path);
+
+        //player = MediaPlayer.create(this,R.raw.sunflower);
         try {
             player.prepare();
         } catch (IllegalStateException e) {
