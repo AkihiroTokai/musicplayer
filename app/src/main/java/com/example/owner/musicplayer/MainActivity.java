@@ -75,7 +75,7 @@ public class MainActivity extends ActionBarActivity {
 
     public void Sunflower(View v) {
         player = new MediaPlayer();
-        player.setDataSource(path);
+        //player.setDataSource(path);
 
         //player = MediaPlayer.create(this,R.raw.sunflower);
         try {
